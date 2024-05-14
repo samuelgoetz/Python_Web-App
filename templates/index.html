@@ -1,0 +1,72 @@
+<!doctype html>
+<head>
+    <title>Hello Azure - Python Quickstart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<style>
+    /* Variablen für die Skalierung */
+:root {
+  --bild-skalierung: 80%; /* Skalierungsfaktor in Prozent */
+}
+
+/* Stil für die Bilder */
+.img-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.img-container .column {
+  flex: 0 0 calc(10% - 10px); /* 50% Breite mit Abstand */
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.img-container img {
+  max-width: var(--bild-skalierung);
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Zentriert horizontal */
+}
+</style>
+<html>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+          <div class="img-container">
+            <div class="column">
+              <img style="border:1px solid black;" src="{{ url_for('static', filename='images/frosch.jpg') }}" alt="Bild 1" width="192" height="192"/>
+            </div>
+            <div class="column">
+              <img style="border:1px solid black;" src="{{ url_for('static', filename='images/frosch2.jpg') }}" alt="Bild 2" width="192" height="192"/>
+            </div>
+          </div>
+          
+          <div class="img-container">
+            <div class="column">
+              <img style="border:1px solid black;" src="{{ url_for('static', filename='images/hase2.jpg') }}" alt="Bild 3" width="192" height="192"/>
+            </div>
+            <div class="column">
+              <img style="border:1px solid black;" src="{{ url_for('static', filename='images/hase3.jpg') }}" alt="Bild 4" width="192" height="192"/>
+            </div>
+          </div>
+          </div>
+            <h1 class="display-6 fw-bold text-center">Sie kleiner Schmollbraten, geben Sie nun UMGEHEND den Index der Bilder mit einem Frosch drauf ein.</h1>            
+          </div>
+        <form method="post" action="{{url_for('hello')}}">
+            <div class="col-md-6 mx-auto text-center">
+                <label for="name" class="form-label fw-bold fs-5">Index Oben Links 1, Unten Links 4</label>
+
+                <!-- <p class="lead mb-2">Could you please tell me your name?</p> -->
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+                    <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
+                  </div>            
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                  <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Bestätigen</button>
+                </div>            
+            </div>
+        </form>
+     </main>      
+   </body>
+</html>
