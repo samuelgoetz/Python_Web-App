@@ -1,31 +1,40 @@
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
+# Fügen Sie Schritte hinzu, die den Code erstellen, Tests ausführen, bereitstellen und mehr:
 # https://aka.ms/yaml
 
+# Auslöser (trigger):
+# Diese Pipeline wird ausgelöst, wenn Änderungen in dem Branch 'main' vorgenommen werden.
 trigger:
 - main
 
+# Pool:
+# Definieren Sie die VM-Umgebung, die für die Ausführung der Pipeline verwendet wird. 
+# In diesem Fall wird das neueste Ubuntu-Image verwendet.
 pool:
   vmImage: 'ubuntu-latest'
 
+# Schritte (steps):
 steps:
+# Schritt 1: Verwenden einer spezifischen Python-Version
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.9'
-  displayName: 'Install Python 3.9'
+  displayName: 'Install Python 3.9'  # Anzeigename des Schritts
 
+# Schritt 2: Abhängigkeiten installieren und Build ausführen
 - script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
+    python -m pip install --upgrade pip  # Aktualisieren von pip
+    pip install -r requirements.txt  # Installieren der in requirements.txt aufgeführten Abhängigkeiten
+    python -m unittest
     # Hier können weitere Build-Schritte hinzugefügt werden
-  displayName: 'Install dependencies and build'
+  displayName: 'Install dependencies and build'  # Anzeigename des Schritts
 
-
+# Schritt 3: Bereitstellung in Azure Web App
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Marco'
-    appName: 'app-service-albsig-dev'
-    appType: 'webAppLinux'
-    runtimeStack: 'PYTHON|3.9'
-    package: '.'
+    azureSubscription: 'Marco'  # Name des Azure-Abonnements
+    appName: 'app-service-albsig-dev'  # Name der Azure Web App
+    appType: 'webAppLinux'  # Typ der Anwendung (hier eine Linux-Webanwendung)
+    runtimeStack: 'PYTHON|3.9'  # Laufzeitumgebung und Version
+    package: '.'  # Verzeichnis der zu bereitstellenden Anwendung (hier das aktuelle Verzeichnis)
