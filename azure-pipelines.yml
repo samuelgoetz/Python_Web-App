@@ -33,8 +33,8 @@ steps:
 # Schritt 3: Bereitstellung in Azure Web App
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Marco'  # Name des Azure-Abonnements
-    appName: 'app-service-albsig-dev'  # Name der Azure Web App
+    azureSubscription: 'CloudComputing'  # Name des Azure-Abonnements
+    appName: 'cloudcomputing-linux-web-app'  # Name der Azure Web App
     appType: 'webAppLinux'  # Typ der Anwendung (hier eine Linux-Webanwendung)
     runtimeStack: 'PYTHON|3.9'  # Laufzeitumgebung und Version
     package: '.'  # Verzeichnis der zu bereitstellenden Anwendung (hier das aktuelle Verzeichnis)
