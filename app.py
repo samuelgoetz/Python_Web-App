@@ -19,7 +19,8 @@ def favicon():
 def hello():
     name = request.form.get('name')
     # Definiere eine Liste gültiger Eingaben
-    valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
+    # valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
+    valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "12", "1/2"]
  
     # Überprüfe, ob die Eingabe in der Liste gültiger Eingaben ist
     if name and any(name.lower() == valid.lower() for valid in valid_inputs):
@@ -29,23 +30,7 @@ def hello():
         print('Tja Thaddaus, war wohl nix!')
         return redirect(url_for('index'))
 
-
-
-# @app.route('/hello', methods=['POST'])
-# def hello():
-#    name = request.form.get('name')
-#Richtige Eingabe: 1 Und 2 / 2 und 1 / 1,2 / 2,1 / 2&1 / 1&2 
-    #dann: Rückgabe Hello.html
-#Falsche Angabe: alles andere
-    #dann: Redirect to Index.html
-     
-#    if name:
-#        print('Haste gut gemacht, mein Jung!')
-#        return render_template('hello.html', name = name)
-#    else:
-#        print('Tja Thaddäus, war wohl nix!')
-#        return redirect(url_for('index'))
-
+# valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "12", "1/2"]
 
 if __name__ == '__main__':
    app.run()
