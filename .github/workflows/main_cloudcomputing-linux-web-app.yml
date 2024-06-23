@@ -3,37 +3,46 @@
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
 name: Build and deploy Python app to Azure Web App - cloudcomputing-linux-web-app
+# Definiert den Namen des Workflows
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+# Bestimmt, wann der Workflow ausgelöst wird: bei Pushes auf den 'main' Branch und manuell über die Workflow-Dispatch-Funktion
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Definiert den Build-Job, der auf der neuesten Ubuntu-Version ausgeführt wird
 
     steps:
       - uses: actions/checkout@v4
+        # Checkt den Quellcode des Repositories aus
 
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
           python-version: '3.9'
+        # Richtet die Python-Version 3.9 ein
 
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-      
+        # Erstellt und aktiviert eine virtuelle Umgebung
+
       - name: Install dependencies
         run: pip install -r requirements.txt
+        # Installiert die Abhängigkeiten, die in der requirements.txt definiert sind
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      # Optional: Fügt einen Schritt hinzu, um Tests auszuführen (z.B. PyTest, Django Test-Suiten, etc.)
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
+        # Packt das gesamte Verzeichnis in ein ZIP-Archiv für die Bereitstellung
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
@@ -42,6 +51,7 @@ jobs:
           path: |
             release.zip
             !venv/
+        # Lädt das ZIP-Archiv als Artefakt hoch, um es im Bereitstellungsjob zu verwenden. Die virtuelle Umgebung (venv) wird ausgeschlossen.
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,17 +59,21 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    # Definiert den Bereitstellungsjob, der nach dem erfolgreichen Abschluss des Build-Jobs ausgeführt wird.
+    # Er verwendet ebenfalls die neueste Ubuntu-Version und benötigt den Build-Job.
+    # Setzt die Bereitstellungsumgebung auf 'Production' und erhält die URL der Web-App aus den Ausgabevariablen des Deploy-Schritts.
     
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: python-app
+        # Lädt das zuvor hochgeladene Artefakt vom Build-Job herunter
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+        # Entpackt das heruntergeladene ZIP-Archiv
 
-      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
@@ -67,3 +81,6 @@ jobs:
           app-name: 'cloudcomputing-linux-web-app'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_346EBDF8A866459988FE5BF703AA57AB }}
+        # Verwendet die Azure Web Apps Deploy Action, um die App in die Azure Web App zu deployen.
+        # Der App-Name ist 'cloudcomputing-linux-web-app', der Slot-Name ist 'Production'.
+        # Das Publish-Profile wird aus den GitHub Secrets bezogen.
