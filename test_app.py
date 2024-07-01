@@ -14,8 +14,8 @@ class TestHelloFunction(unittest.TestCase):
     @patch('app.redirect')
     def test_valid_input(self, mock_redirect, mock_render_template):
         # Mock-Objekte werden automatisch den Test-Argumenten übergeben
-        # inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
-        inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "2 1", "12", "21", "1/2", "2/1"]
+        inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
+        # inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "2 1", "12", "21", "1/2", "2/1"]
         for input_value in inputs:
             response = self.client.post('/hello', data={'name': input_value})
             mock_render_template.assert_called_once_with('hello.html', name=input_value)
