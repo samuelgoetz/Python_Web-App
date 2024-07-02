@@ -19,8 +19,8 @@ def favicon():
 def hello():
     name = request.form.get('name')
     # Definiere eine Liste gültiger Eingaben
-    valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
-    # valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "2 1", "12", "21", "1/2", "2/1"]
+    # valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2"]
+    valid_inputs = ["1 und 2", "2 und 1", "1,2", "2,1", "2&1", "1&2", "1 2", "2 1", "12", "21", "1/2", "2/1"]
  
     # Überprüfe, ob die Eingabe in der Liste gültiger Eingaben ist
     if name and any(name.lower() == valid.lower() for valid in valid_inputs):
@@ -33,3 +33,13 @@ def hello():
 
 if __name__ == '__main__':
    app.run()
+
+
+
+# git branch bugfix 
+# git checkout bugfix 
+# Entwicklung 
+
+# git add .
+# git commit -m "bug fix"
+# git push origin bugfix 
